@@ -1,5 +1,7 @@
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
+from web_app.model import db, News
 
 
 def get_html(url):
@@ -21,11 +23,15 @@ def get_news():
         for news in all_news:
             title = news.find('h2', class_="flow-post__title").text
             url = news.find('a')['href']
-            body = news.find('p', class_="flow-post__excerpt").text
-            result_news.append({
-                "title": title,
-                "url": url,
-                "body": body
-            })
-        return result_news
-    return False
+            text = news.find('p', class_="flow-post__excerpt").text
+            now = datetime.now().strftime('%Y-%m-%d')
+            published = datetime.strptime(now, '%Y-%m-%d')
+            save_news(title, url, published, text)
+
+
+def save_news(title, url, published, text):
+    news_exists = News.query.filter(News.url == url).count()
+    if not news_exists:
+        new_news = News(title=title, url=url, published=published, text=text)
+        db.session.add(new_news)
+        db.session.commit()

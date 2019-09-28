@@ -24,7 +24,7 @@
                 <h2>
                     <a href="{{ news.url }}">{{ news.title }}</a>
                 </h2>
-                <p>{{ news.body }}</p>
+                <p>{{ news.text }}<br><time>{{ news.published.strftime('%d-%m-%Y') }}</time></p>
                 <hr>
                 {% endfor %}
 
@@ -35,7 +35,7 @@
                     {% if weather %}
                     {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
                     {% else %}
-                    Ошибка
+                    {{weather}}
                     {% endif %}
                 </p>
             </div>
