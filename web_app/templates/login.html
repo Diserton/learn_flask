@@ -16,6 +16,7 @@
 <body>
 
     <div class="container">
+        <h1>{{ page_title }}</h1><br>
         <div class="row">
             <div class="col-8">
                 {% with messages = get_flashed_messages() %}
@@ -27,26 +28,21 @@
                 </div>
                 {% endif %}
                 {% endwith %}
-                <h1>{{ page_title }}</h1>
-
-                {% for news in news_list %}
-                <h2>
-                    <a href="{{ news.url }}">{{ news.title }}</a>
-                </h2>
-                <p>{{ news.text }}<br><time>{{ news.published.strftime('%d-%m-%Y') }}</time></p>
-                <hr>
-                {% endfor %}
-
+                <form action="{{ url_for('process_login') }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.username.label }}
+                        {{ form.username() }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        {{ form.password() }}
+                    </div>
+                    {{ form.submit() }}
+                </form>
             </div>
             <div class="col-4">
-                <h2>Прогноз погоды</h2>
-                <p>
-                    {% if weather %}
-                    {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
-                    {% else %}
-                    {{weather}}
-                    {% endif %}
-                </p>
+
             </div>
         </div>
     </div>
