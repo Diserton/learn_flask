@@ -19,7 +19,6 @@ def get_news():
     if html:
         soup = BeautifulSoup(html, 'html.parser')
         all_news = soup.findAll('div', class_='flow-post')
-        result_news = []
         for news in all_news:
             title = news.find('h2', class_="flow-post__title").text
             url = news.find('a')['href']

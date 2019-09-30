@@ -3,7 +3,6 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 
 from web_app.weather import weather_by_city
 from web_app.model import db, News, User
-
 from web_app.forms import LoginForm
 
 
