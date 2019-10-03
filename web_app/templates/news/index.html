@@ -16,9 +16,9 @@
 
         {% for news in news_list %}
         <h2>
-            <a href="{{ news.url }}">{{ news.title }}</a>
+            <a href="{{ url_for('news.single_news', news_id=news.id) }}">{{ news.title }}</a>
         </h2>
-        <p>{{ news.text }}<br><time>{{ news.published.strftime('%d-%m-%Y') }}</time></p>
+        <p><time>{{ news.published.strftime('%d-%m-%Y') }}</time></p>
         <hr>
         {% endfor %}
 

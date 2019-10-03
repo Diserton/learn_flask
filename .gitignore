@@ -3,3 +3,6 @@ draft.txt
 venv/
 config.py
 *.db
+*.bat
+celerybeat-schedule.*
+celerybeat.pid

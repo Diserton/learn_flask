@@ -1,0 +1,25 @@
+import requests
+
+from web_app.db import db
+from web_app.news.models import News
+
+
+def get_html(url):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
+    }
+    try:
+        result = requests.get(url, headers=headers)
+        result.raise_for_status()
+        return result.text
+    except(requests.RequestException, ValueError):
+        print("Ошибка!")
+        return False
+
+
+def save_news(title, url, published):
+    news_exists = News.query.filter(News.url == url).count()
+    if not news_exists:
+        new_news = News(title=title, url=url, published=published)
+        db.session.add(new_news)
+        db.session.commit()
